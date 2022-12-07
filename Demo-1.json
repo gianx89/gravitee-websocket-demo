@@ -1,0 +1,183 @@
+{
+  "name": "Demo",
+  "crossId": "8c6ecf19-3910-4347-aecf-1939101347b8",
+  "version": "1",
+  "execution_mode": "v3",
+  "description": "Demo",
+  "visibility": "PRIVATE",
+  "flows": [],
+  "gravitee": "2.0.0",
+  "flow_mode": "DEFAULT",
+  "resources": [],
+  "properties": [],
+  "members": [
+    {
+      "source": "memory",
+      "sourceId": "admin",
+      "roles": [
+        "89e8ffb9-afe6-4527-a8ff-b9afe6a5279b"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "98aac8a9-ba3b-4d84-aac8-a9ba3b1d844c",
+      "crossId": "76529d02-7fd5-48c3-929d-027fd538c365",
+      "name": "Aside",
+      "type": "SYSTEM_FOLDER",
+      "order": 0,
+      "published": true,
+      "visibility": "PUBLIC",
+      "lastModificationDate": 1670424905075,
+      "contentType": "application/json",
+      "homepage": false,
+      "parentPath": "",
+      "excludedAccessControls": false,
+      "accessControls": [],
+      "api": "707d62e6-6451-456f-bd62-e66451a56fc4",
+      "attached_media": []
+    }
+  ],
+  "plans": [
+    {
+      "id": "9b43a855-a4f9-45dd-83a8-55a4f9e5dd86",
+      "crossId": "611ac2b8-8b12-4fd2-9ac2-b88b123fd2ce",
+      "name": "Keyless Plan",
+      "description": "Keyless Plan",
+      "validation": "AUTO",
+      "security": "KEY_LESS",
+      "type": "API",
+      "status": "PUBLISHED",
+      "api": "707d62e6-6451-456f-bd62-e66451a56fc4",
+      "order": 0,
+      "characteristics": [],
+      "created_at": 1670412090791,
+      "updated_at": 1670424905037,
+      "published_at": 1670412090793,
+      "paths": {},
+      "flows": [
+        {
+          "name": "",
+          "path-operator": {
+            "path": "/",
+            "operator": "STARTS_WITH"
+          },
+          "condition": "",
+          "consumers": [],
+          "methods": [],
+          "pre": [
+            {
+              "name": "Dynamic Routing",
+              "description": "",
+              "enabled": true,
+              "policy": "dynamic-routing",
+              "configuration": {
+                "rules": [
+                  {
+                    "pattern": "/wsService/(.*)",
+                    "url": "{#endpoints['wsService']}/{#group[0]}"
+                  }
+                ]
+              }
+            }
+          ],
+          "post": [],
+          "enabled": true
+        }
+      ],
+      "comment_required": false
+    }
+  ],
+  "metadata": [
+    {
+      "key": "email-support",
+      "name": "email-support",
+      "format": "MAIL",
+      "value": "${(api.primaryOwner.email)!''}",
+      "defaultValue": "support@change.me",
+      "apiId": "707d62e6-6451-456f-bd62-e66451a56fc4"
+    }
+  ],
+  "id": "707d62e6-6451-456f-bd62-e66451a56fc4",
+  "path_mappings": [],
+  "proxy": {
+    "virtual_hosts": [
+      {
+        "path": "/demo/"
+      }
+    ],
+    "strip_context_path": false,
+    "preserve_host": false,
+    "groups": [
+      {
+        "name": "wsService",
+        "load_balancing": {
+          "type": "ROUND_ROBIN"
+        },
+        "services": {
+          "discovery": {
+            "enabled": true,
+            "provider": "consul-service-discovery",
+            "configuration": {
+              "url": "http://consulclient:8500",
+              "trustStoreType": "NONE",
+              "keyStoreType": "NONE",
+              "service": "wsService",
+              "dc": "dc1"
+            }
+          }
+        },
+        "http": {
+          "connectTimeout": 5000,
+          "idleTimeout": 60000,
+          "keepAlive": true,
+          "readTimeout": 10000,
+          "pipelining": false,
+          "maxConcurrentConnections": 100,
+          "useCompression": true,
+          "followRedirects": false
+        }
+      }
+    ],
+    "cors": {
+      "enabled": true,
+      "allowCredentials": true,
+      "allowOrigin": [
+        "*"
+      ],
+      "allowHeaders": [
+        "content-type",
+        "origin",
+        "access-control-request-method",
+        "access-control-request-headers",
+        "connection",
+        "upgrade"
+      ],
+      "allowMethods": [
+        "TRACE",
+        "HEAD",
+        "DELETE",
+        "POST",
+        "GET",
+        "OPTIONS",
+        "PATCH",
+        "PUT"
+      ],
+      "exposeHeaders": [
+        "content-type",
+        "origin",
+        "access-control-request-method",
+        "access-control-request-headers",
+        "connection",
+        "upgrade"
+      ],
+      "maxAge": -1
+    }
+  },
+  "response_templates": {},
+  "primaryOwner": {
+    "id": "bbce027a-3cc7-4fd9-8e02-7a3cc77fd9c8",
+    "displayName": "admin",
+    "type": "USER"
+  }
+}
